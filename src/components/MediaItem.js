@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, Button, StyleSheet } from 'react-native';
+import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 
 export default function MediaItem({ item, navigation, typeGroup }) {
   const title = item.title || item.name;
@@ -16,12 +16,15 @@ export default function MediaItem({ item, navigation, typeGroup }) {
       <View style={styles.info}>
         <Text style={styles.title}>{title}</Text>
         {date && <Text style={styles.date}>{date}</Text>}
-        <Button
-          title="More details"
+
+        <TouchableOpacity
+          style={styles.button}
           onPress={() =>
             navigation.navigate('Show', { id: item.id, typeGroup })
           }
-        />
+        >
+          <Text style={styles.buttonText}>More Details</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -30,26 +33,43 @@ export default function MediaItem({ item, navigation, typeGroup }) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    padding: 8,
-    borderBottomWidth: 1,
-    borderColor: '#ddd',
+    padding: 15,
+    borderRadius: 15,
+    marginBottom: 10,
+    alignItems: 'center',
+    backgroundColor: '#ada1a1ff',
+    gap: 10,
   },
   poster: {
-    width: 80,
-    height: 120,
-    borderRadius: 4,
+    width: 90,
+    height: 140,
+    borderRadius: 6,
   },
   info: {
     flex: 1,
-    paddingLeft: 8,
+    paddingLeft: 10,
     justifyContent: 'space-between',
   },
   title: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
   },
   date: {
-    color: '#555',
+    color: '#474141ff',
     marginVertical: 4,
+  },
+  button: {
+    marginTop: 8,
+    backgroundColor: '#0a0000ff', 
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    alignItems: 'center',
+    alignSelf: 'flex-start', 
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 14,
   },
 });

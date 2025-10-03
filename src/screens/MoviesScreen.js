@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { fetchList } from '../api/tmdb';
 import TypeDropdown from '../components/TypeDropDown';
 import MediaList from '../components/MediaList';
@@ -18,9 +18,43 @@ export default function MoviesScreen({ navigation }) {
   }, [subtype, page]);
 
   return (
-    <View style={{ flex:1 }}>
-      <TypeDropdown options={MOVIE_SUBTYPES} value={subtype} onChange={val => { setSubtype(val); setPage(1); }} />
-      <MediaList items={data ? data.results : []} navigation={navigation} baseType="movie" />
+    <View style={styles.container}>
+      <TypeDropdown
+        options={MOVIE_SUBTYPES}
+        value={subtype}
+        onChange={val => { setSubtype(val); setPage(1); }}
+        style={styles.dropdown}
+      />
+      <MediaList
+        items={data ? data.results : []}
+        navigation={navigation}
+        baseType="movie"
+        style={styles.list}
+      />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#eee7e7ff',
+    paddingHorizontal: 10,
+    paddingTop: 10,
+  },
+  dropdown: {
+    marginBottom: 15,
+    borderRadius: 20,
+    backgroundColor: '#e21b1bff',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 2,
+    padding: 5,
+    fontWeight: 'bold',
+
+  },
+  list: {
+    flex: 1,
+  },
+});
